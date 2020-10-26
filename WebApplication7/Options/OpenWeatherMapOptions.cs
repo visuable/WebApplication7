@@ -10,5 +10,6 @@ namespace WebApplication7.Options
     {
         public string ApiUrl { get; set; }
         public string ApiKey { get; set; }
+        public string Units { get; set; }
     }
 }

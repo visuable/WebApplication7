@@ -25,7 +25,7 @@ namespace WebApplication7.Services.Implements
         {
             var y = _factory.CreateClient("JsonHttpClient");
             // можно заменить Url-билдером из c#
-            var x = await y.GetAsync(options.ApiUrl + "?appId=" + options.ApiKey + "&q=" + name);
+            var x = await y.GetAsync(options.ApiUrl + "?appId=" + options.ApiKey + "&q=" + name + "&units=" + options.Units);
             return serializer.Serialize(await x.Content.ReadAsStringAsync());
         }
     }
