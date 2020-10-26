@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication7.Options
 {
-    public class OpenWeatherMapOptions : IOption
+    public class OpenWeatherMapOptions
     {
         public string ApiUrl { get; set; }
         public string ApiKey { get; set; }

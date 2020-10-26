@@ -38,7 +38,6 @@ namespace WebApplication7
             // OpenWeatherMapWeather ----
             services.AddTransient<IWeatherService, OpenWeatherMapWeatherService>();
             services.AddTransient<IWeatherSerializer, OpenWeatherMapWeatherSerializer>();
-            services.AddTransient<IOption, OpenWeatherMapOptions>();
             // В appsettings.json вынесен api-key и api-url
             services.Configure<OpenWeatherMapOptions>(Configuration.GetSection(nameof(OpenWeatherMapOptions)));
             // ---- OpenWeatherMapWeather
