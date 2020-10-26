@@ -49,7 +49,7 @@ namespace WebApplication7.Models.FirstModels
         public int sunset { get; set; }
     }
 
-    public class OpenWeatherMapWeather
+    public class _OpenWeatherMapWeather
     {
         public Coord coord { get; set; }
         public List<Weather_> weather { get; set; }

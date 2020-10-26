@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Newtonsoft.Json;
 using WebApplication7.Models;
 using WebApplication7.Models.FirstModels;
@@ -9,17 +10,16 @@ namespace WebApplication7.Services.Implements
 {
     public class OpenWeatherMapWeatherSerializer : IWeatherSerializer
     {
+        private IMapper mapper;
+        public OpenWeatherMapWeatherSerializer(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
         public Weather Serialize(string text)
         {
-            var root = JsonConvert.DeserializeObject<OpenWeatherMapWeather>(text);
-            Weather weather = new Weather();
-            weather.Clouds = root.clouds.all;
-            weather.Description = root.weather.First().description;
-            weather.Himidity = root.main.humidity;
-            weather.Temperature = root.main.temp;
-            weather.Visibility = root.visibility;
-            weather.WindSpeed = root.wind.speed;
-            return weather;
+            var root = JsonConvert.DeserializeObject<_OpenWeatherMapWeather>(text);
+            var map = mapper.Map<Weather>(root);
+            return map;
         }
     }
 }

@@ -5,21 +5,28 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WebApplication7.Models;
+using WebApplication7.Options;
 
 namespace WebApplication7.Services.Implements
 {
     public class OpenWeatherMapWeatherService : IWeatherService
     {
         private IHttpClientFactory _factory;
-        public OpenWeatherMapWeatherService(IHttpClientFactory factory)
+        private IWeatherSerializer serializer;
+        private OpenWeatherMapOptions options;
+
+        public OpenWeatherMapWeatherService(IWeatherSerializer serializer, IHttpClientFactory factory, IOptions<OpenWeatherMapOptions> options)
         {
+            this.serializer = serializer;
+            this.options = options.Value;
             _factory = factory;
         }
         public async Task<Weather> GetCurrentWeatherInfo(string name)
         {
             var y = _factory.CreateClient("JsonHttpClient");
-            var x = await y.GetAsync($"https://api.openweathermap.org/data/2.5/weather?q={name}&appid=a3977c6f3b246e3e3828147d541116a5");
-            return new OpenWeatherMapWeatherSerializer().Serialize(await x.Content.ReadAsStringAsync());
+            // можно заменить Url-билдером из c#
+            var x = await y.GetAsync(options.ApiUrl + "?appId=" + options.ApiKey + "&q=" + name);
+            return serializer.Serialize(await x.Content.ReadAsStringAsync());
         }
     }
 }
